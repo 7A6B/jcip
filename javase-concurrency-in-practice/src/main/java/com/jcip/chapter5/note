@@ -1,0 +1,46 @@
+//以内部类的形式 隐藏了迭代器实现的细节，对外以接口的形式进行暴漏
+ public Iterator<E> iterator() {
+        return new Itr();
+ }
+
+   private class Itr implements Iterator<E> {
+        int cursor;       // index of next element to return
+        int lastRet = -1; // index of last element returned; -1 if no such
+        int expectedModCount = modCount; //此处是将modCount赋值给了内部类的变量expectedModCount
+
+        //迭代获取下一个元素
+         public E next() {
+            checkForComodification();
+            int i = cursor;
+            if (i >= size)
+                throw new NoSuchElementException();
+            Object[] elementData = ArrayList.this.elementData;
+            if (i >= elementData.length)
+                throw new ConcurrentModificationException();
+            cursor = i + 1;
+            return (E) elementData[lastRet = i];
+        }
+
+       //在迭代的时候 检查modCount和expectedModCount 是否一致
+        final void checkForComodification() {
+            if (modCount != expectedModCount)
+                throw new ConcurrentModificationException();
+        }
+
+  }
+
+  //这是ArrayList的源码
+  public E remove(int index) {
+          rangeCheck(index);
+
+          modCount++;  //ArrayList当其他线程并发的修改该容器的状态的时候，modCount值会修改
+          E oldValue = elementData(index);
+
+          int numMoved = size - index - 1;
+          if (numMoved > 0)
+              System.arraycopy(elementData, index+1, elementData, index,
+                               numMoved);
+          elementData[--size] = null; // clear to let GC do its work
+
+          return oldValue;
+      }
