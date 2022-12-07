@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.concurrent.Semaphore;
 
 public class Pool<T> {
-    private int size;//标识默认端的大小
+    private int size;//标识默认的大小
     private List<T> items = new ArrayList<>();//存放对象的池子
     private volatile boolean[] checkedOut;//检出的标识
     private Semaphore available;
@@ -24,7 +24,7 @@ public class Pool<T> {
     }
 
     public T checkOut() throws InterruptedException {
-        available.acquire();
+        available.acquire();//获取凭证
         return getItem();
     }
 
