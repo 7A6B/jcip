@@ -12,7 +12,6 @@ public class EvenChecker implements Runnable{
         id = identity;
         this.generator = generator;
     }
-
     @Override
     public void run() {
         while (!generator.isCanceled()){
