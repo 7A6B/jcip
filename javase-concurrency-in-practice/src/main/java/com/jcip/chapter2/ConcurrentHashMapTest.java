@@ -35,7 +35,6 @@ public class ConcurrentHashMapTest {
                 return res;
             });
         }).start();
-
         TimeUnit.SECONDS.sleep(1);
         System.out.println(Foo.getHashMap());
     }
