@@ -25,6 +25,5 @@ public class UserService {
        new Thread(()->{
            userService.updateUserByName(user);
        }).start();
-
     }
 }
