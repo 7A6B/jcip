@@ -2,7 +2,6 @@ package com.jcip.chapter2;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
 class ExpensiveObject{
     ExpensiveObject(){
         System.out.println(this);
