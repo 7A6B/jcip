@@ -1,0 +1,9 @@
+1,生产者通过execute api中地workQueue.offer(command)添加Runnable
+
+2，execute如果需要地话，会通过addWorker添加Worker线程,本身也是一个Runnable
+
+2-1，创建Worker在addWorker方法中
+2-2，Worker本身也是一个Runnable,需要重点关注run()
+2-3，在runWorker中会进行getTask()获取任务
+
+3，在getTask()中从workQueue中获取Runnable -> 此处地角色为消费者
